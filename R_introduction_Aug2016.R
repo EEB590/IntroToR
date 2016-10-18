@@ -17,6 +17,7 @@
 # ----- Using R as a calculator ------
 1+2
 cos(pi)
+tan(1)
 
 # Arithmetic
 #  +  add
@@ -29,6 +30,8 @@ cos(pi)
 #  >   greater, less than
 #  >=  greater than or equal to
 #  !=  not equal to
+#  ==  is equal to
+
 
 # Logical
 #  !  not
@@ -47,11 +50,11 @@ cos(pi)
 #   the 2*x as the function I want to graph and
 #   "from" and "to" as arguments to specify x axis length
 
-curve(2*x, from=0,to=8)
+curve(2*x, from=0,to=8000, n=20)
+curve(2*x^2, from=0, to=8000, n=20)
+curve(2*x^3+5, from=0, to=8)
 
-
-
-
+curve(cos(2*x), from=0, to=8000, n=20)
 
 # ----- Getting help ------
 
@@ -68,15 +71,12 @@ curve(2*x, from=0,to=8)
 
 
 
-
-
-
 # ----- Downloading new packages ------
 
 # If the function you want is in a
 #   different package, use install.packages() (or use Packages tab in RStudio)
 
-install.packages("lme4")
+#install.packages("lme4")
 
 # To load this so R can use it, use library() (or check box in Packages tab on RStudio)
 
@@ -92,11 +92,13 @@ library(lme4)
 
 # Make a vector with concatenate, c()
 
-c(1,2,3,4,5)
+firstfive<-c(1,2,3,4,5)
 
 # Or save this as something
 
 myvector <- c(1,2,3,4,5)
+myvector<-c("ab","cd","ef","gh")
+myvectorf<-as.factor(myvector)
 
 # Type the name to see it
 
@@ -106,7 +108,7 @@ myvector
 
 mean(myvector)
 
-myvector2 <- myvector*2
+#myvector2 <- myvector*2
 myvector2
 
 # Combine vectors
@@ -128,15 +130,14 @@ getwd()
 # Set your working directory using setwd()
 #   or by using "Set as working director" in the "More"
 #   option in the "Files" tab on the right
-
-setwd('/Users/Haldre/Desktop/')
+setwd("~/Box Sync/Iowa State University/Teaching/Rstats/IntroToR")
 
 # R likes .csv or .txt files
 #   so use Excel to save as one of those
 
 # Read file using read.csv, naming it something
 
-data <- read.csv('RWorkshopDay1.csv', header=TRUE)
+data2 <- read.csv('RWorkshopDay1.csv')
 
 # You can ignore the wd and use file.choose()
 # data <- read.csv(file.choose())
@@ -151,6 +152,8 @@ data <- read.csv('RWorkshopDay1.csv', header=TRUE)
 # What does R interpret this as? use class()
 
 class(data)
+
+data$Days<-as.factor(data$Days)
 
 # Good! R interprets it as a data frame
 
@@ -185,6 +188,8 @@ data$Plot <- as.factor(data$Plot)
 
 str(data)
 
+data$Date<-as.Date(data$Date,  format="%m/%d/%Y")
+
 
 
 
@@ -203,7 +208,9 @@ data[2,5]
 data[2,]
 
 # Specific column
-data[,5]
+data$Veg
+head(data$Veg)
+head(data[,5])
 
 # OR, data$column
 
@@ -211,7 +218,7 @@ data$Veg
 
 # OR, data[['column']]
 
-data[['Veg']]
+head(data[['Veg']])
 
 
 
@@ -226,6 +233,8 @@ flow <- read.table('RWorkshopDay2.txt',header=T)
 
 head(flow)
 flow$init_g
+str(flow)
+summary(flow)
 
 # Create a vector by calculating
 # This isnt automatically attached to the "flow" data frame
@@ -240,7 +249,14 @@ head(flow)
 
 ### now it's your turn #### 
 
-#read in spider.csv 
-#explore dataset -what is min, max, average for the total # of webs? 
-#create a vector describing the number of webs per meter
-#make a histogram of the total number of webs
+# read in spider.csv
+# explore dataset -what is min, max, average for the total # of webs?
+# create a vector describing the number of webs per meter
+# make a histogram of the total number of webs
+
+hist()
+barplot(table(spider$year,))
+table(spider$year, spider$island)
+with(spider, table(year,island,season))
+
+hist(spider$tot_webs)
