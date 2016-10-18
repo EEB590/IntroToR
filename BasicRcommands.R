@@ -13,6 +13,8 @@
 #1. Navigate to the folder with your data. (use ... button on right side)
 #2. select "more". 
 #3. Select "set as working directory"
+setwd("~/Box Sync/Iowa State University/Teaching/Rstats/IntroToR")
+
 
 #Next, load dataset. 
 spider<-read.csv("spider.csv", header=T)
@@ -31,15 +33,15 @@ var(spider$tot_webs, na.rm=T) # sample variance
 sd(spider$tot_webs, na.rm=T) # sample standard deviation
 
 ########### Counts, boxplots, histograms etc.- use to examine data ##########
-table(spider$island, tot_webs) # shows counts of each value in x (producing a unidimensional list of frequencies with the values as dimnames)
-table(spider$tot_webs)/length(tot_webs) # shows relative frequencies
-barplot(spider$table(tot_webs)) # by virtue of the way table() produces its results, this produces a frequency histogram
+table(spider$island, spider$tot_webs) # shows counts of each value in x (producing a unidimensional list of frequencies with the values as dimnames)
+table(spider$tot_webs)/length(spider$tot_webs) # shows relative frequencies
+#barplot(spider, table(tot_webs)) # by virtue of the way table() produces its results, this produces a frequency histogram
 hist(spider$tot_webs) # a more general way of doing a histogram (also deals with continuous data).
 # Use "prob=TRUE" to plot relative frequencies (so the area under the graph is 1).
 # The "breaks" option can be used for manual control of the number of bins.
 boxplot(spider$tot_webs) # Box-and-whisker plot
-boxplot(spider$tot_webs~island) #boxplot separated by group
-plot(spider$birddens, tot_webs) #scatterplot, but bird_dens varies by island and only 4 islands, so it looks strange
+boxplot(spider$tot_webs~spider$island) #boxplot separated by group
+plot(spider$birddens, spider$tot_webs) #scatterplot, but bird_dens varies by island and only 4 islands, so it looks strange
 
 ######graphing with ggplot2########
 #http://blog.echen.me/2012/01/17/quick-introduction-to-ggplot2/
