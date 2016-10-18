@@ -47,6 +47,7 @@ summary(mod2) #note that the summary tables are different because we changed the
 mod1 <- lm(mass ~ pop)
 model.matrix(mod1)
 summary(mod1)
+coef(mod1)
 
 #means parameterization
 mod2 <- lm(mass~pop-1)	
